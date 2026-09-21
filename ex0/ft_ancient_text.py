@@ -21,12 +21,12 @@ def take_args(args: list[str]) -> None:
             fd.close()
             print(f"File '{name}' closed.")
     except FileNotFoundError as e:
-            print(f"Error opening file {name}: {e}")
+        print(f"Error opening file {name}: {e}")
     except PermissionError as e:
-            print(f"Error opening file {name}: {e}")
+        print(f"Error opening file {name}: {e}")
     except Exception as e:
         print(f"{e}")
-        
+
 
 def main() -> None:
     take_args(sys.argv)
