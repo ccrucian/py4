@@ -8,7 +8,7 @@ class NoFile(Exception):
 
 def take_name(args: list[str]) -> str:
     if len(args) == 1:
-        print("Usage: ft_ancient_text.py <file>\n", file=sys.stderr)
+        print("Usage: ft_stream_management.py <file>", file=sys.stderr)
         raise NoFile
     else:
         print(
@@ -38,6 +38,7 @@ def transform_text(text: str) -> str:
         if i == len(lines) - 1 and line == "":
             continue
         new_text += line + "#\n"
+        i += 1
     return new_text
 
 
@@ -46,6 +47,7 @@ def write_file(name: str, text: str) -> None:
         fd: typing.IO[str] = open(name, "w")
         try:
             fd.write(text)
+            print(f"Data saved in file '{name}'")
         finally:
             fd.close()
     except OSError as e:
@@ -59,6 +61,8 @@ def main() -> None:
     try:
         name = take_name(sys.argv)
         text = read_file(name)
+    except NoFile:
+        return
     except OSError as e:
         print(
             f"[STDERR] Error opening file '{name}': {e}",
@@ -78,7 +82,6 @@ def main() -> None:
     else:
         print(f"Saving data '{new_name}'")
         write_file(new_name, new_text)
-        print(f"Data saved in file '{new_name}'")
 
 
 if __name__ == "__main__":

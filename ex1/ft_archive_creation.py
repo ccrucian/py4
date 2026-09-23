@@ -8,7 +8,7 @@ class NoFile(Exception):
 
 def take_name(args: list[str]) -> str:
     if len(args) == 1:
-        print("Usage: ft_ancient_text.py <file>\n")
+        print("Usage: ft_archive_data.py <file>")
         raise NoFile
     else:
         print(
@@ -38,6 +38,7 @@ def transform_text(text: str) -> str:
         if i == len(lines) - 1 and line == "":
             continue
         new_text += line + "#\n"
+        i += 1
     return new_text
 
 
@@ -60,6 +61,8 @@ def main() -> None:
     try:
         name = take_name(sys.argv)
         text = read_file(name)
+    except NoFile:
+        return
     except OSError as e:
         print(
             f"Error opening file '{name}': {e}"
